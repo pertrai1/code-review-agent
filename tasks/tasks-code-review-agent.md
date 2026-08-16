@@ -32,6 +32,7 @@
 - Use the repository’s actual test command: `npm run test` for the full Vitest suite with coverage, or `npx vitest run <path>` for targeted tests.
 - Prefer small scripts over large inline workflow steps once the logic involves structured parsing, retries, or provider-specific behavior.
 - Create a separate feature branch for each top-level task (`1.0`, `2.0`, and so on). Make atomic commits for the sub-tasks on that branch, merge it into `main` when the top-level task is complete, then create a new feature branch for the next top-level task.
+- Task `0.0` is a repeatable workflow step that should be performed for each top-level task. Do not treat it as a one-time project milestone.
 - When a top-level task is completed, append a short summary directly under that top-level task recording the token usage observed for that task. Include the provider or model, the prompt and completion token counts when available, and note when token usage could not be measured.
 
 ## Instructions for Completing Tasks
@@ -52,12 +53,20 @@ If the task did not invoke a model or token usage was unavailable, use:
 
 `Summary: token usage unavailable` or `Summary: no model tokens used`
 
+## Per-Task Workflow
+
+Repeat this workflow for each top-level task before starting its sub-tasks:
+
+1. Choose the next top-level task to implement and scope the branch to that task only.
+2. Create and checkout a new branch for that task (for example `git checkout -b feature/task-2-baseline-review-script`).
+3. Make atomic commits for the sub-tasks on that branch.
+4. Merge the branch into `main` after the top-level task is complete.
+5. Repeat this workflow for the next top-level task.
+
 ## Tasks
 
-- [ ] 0.0 Create feature branch for the current top-level task
-  - [ ] 0.1 Choose the next top-level task to implement and scope the branch to that task only
-  - [ ] 0.2 Create and checkout a new branch for that task (for example `git checkout -b feature/task-2-baseline-review-script`)
-  - [ ] 0.3 Merge the branch into `main` after the top-level task is complete, then repeat task `0.0` for the next top-level task
+### Top-Level Tasks
+
 - [ ] 1.0 Complete Step Zero environment setup and fixture validation
   - [ ] 1.1 Create or identify a target repository fork with the two pull requests described in `docs/REQUIREMENTS.md`
   - [ ] 1.2 Obtain a GitHub token with permission to read pull requests and write comments on the target repository
